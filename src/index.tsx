@@ -1,9 +1,8 @@
-import { Icon, MenuBarExtra } from "@raycast/api";
-import { getNetworkData, TrafficData } from "./utils";
+import { MenuBarExtra } from "@raycast/api";
 import { useCachedPromise, useCachedState } from "@raycast/utils";
-import { getTraffic } from "./utils";
+import { getNetworkData, getTraffic, type TrafficData } from "./utils";
 
-export default function Command() {
+const Command = () => {
   const [netData, setNetData] = useCachedState<{
     prev: TrafficData | null;
     current: TrafficData;
@@ -27,9 +26,10 @@ export default function Command() {
 
   return (
     <MenuBarExtra
-      icon={Icon.ChevronUpDown}
       isLoading={isLoading}
-      title={`${getTraffic(netData, "received")}/${getTraffic(netData, "sent")}`}
+      title={`▲ ${getTraffic(netData, "sent")}   ▼ ${getTraffic(netData, "received")}`}
     />
   );
-}
+};
+
+export default Command;
